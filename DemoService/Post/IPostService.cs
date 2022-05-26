@@ -8,5 +8,7 @@ namespace DemoService.PostService
     {
         List<PostViewModel> GetPostList();
         PostViewModel GetPostById(int Id);
+        bool DeletePost(int Id, long logId);
+        bool SavePost(PostViewModel postViewModel, long logId);
     }
 }

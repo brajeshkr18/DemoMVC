@@ -30,6 +30,53 @@ namespace DemoService.PostService
             Mapper.Map(postObj, postViewModel);
             return postViewModel;
         }
+        public bool DeletePost (int Id,long LogId)
+        {
+            bool result;
+            try
+            {
+                var postObj = _Context.Posts.Where(x => x.Id == Id).FirstOrDefault();
+                postObj.IsDeleted = true;
+                postObj.ModifiedOn = DateTime.Now;
+                postObj.ModifiedBy = LogId;
+                _Context.SaveChanges();
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+        }
+        public bool SavePost(PostViewModel postViewModel, long logId)
+        {
+            bool result;
+            try
+            {
+                if (postViewModel.Id!=0)
+                {
+                    var postObj = _Context.Posts.Where(x => x.Id == postViewModel.Id).FirstOrDefault();
+                    Mapper.Map(postViewModel, postObj);
+                }
+                else
+                {
+                  Post post = new Post();
+                  Mapper.Map(postViewModel, post);
+                  post.IsActive = true;
+                  post.CreatedOn = DateTime.Now;
+                  post.IsDeleted = false;
+                  post.CreatedBy = logId;
+                 _Context.Posts.Add(post);
+                }
+                _Context.SaveChanges();
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+            return result;
+        }
 
     }
 }

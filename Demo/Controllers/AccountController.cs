@@ -24,7 +24,7 @@ namespace Demo.Controllers
                 System.Web.HttpContext.Current.Request.Cookies["ES"].Expires = DateTime.Now.AddHours(24);
                 if (UserAuthenticate.UserTypeId== (int)UserType.User)
                 {
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("ManagePosts", "Post");
                 }
                 if (UserAuthenticate.UserTypeId == (int)UserType.Admin)
                 {

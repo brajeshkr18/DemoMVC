@@ -1310,6 +1310,9 @@
     <Content Include="Views\Account\Unauthorized.cshtml" />
     <Content Include="Views\User\AddUser.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Post\_Posts.cshtml" />
+    <Content Include="Views\Post\AddPost.cshtml" />
+    <Content Include="Views\Post\ManagePosts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
