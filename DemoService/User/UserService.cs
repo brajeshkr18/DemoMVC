@@ -47,7 +47,13 @@ namespace DemoService.UserService
                         userviewmodel = ds.Tables[0].AsEnumerable().Select(r => new UserViewModel
                         {
                             Email = r.Field<string>("Email"),
-                            UserName = r.Field<string>("Age")
+                            UserName = r.Field<string>("UserName"),
+                            FirstName = r.Field<string>("FirstName"),
+                            LastName = r.Field<string>("FirstName"),
+                            PhoneNumber = r.Field<string>("PhoneNumber"),
+                            UserTypeCode = r.Field<string>("Code"),
+                            UserTypeId = r.Field<long>("UserTypeId"),
+                            Id = r.Field<long>("Id"),
                         }).FirstOrDefault();
                         con.Close();
                     }
