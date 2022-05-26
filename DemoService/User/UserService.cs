@@ -53,6 +53,7 @@ namespace DemoService.UserService
                             PhoneNumber = r.Field<string>("PhoneNumber"),
                             UserTypeCode = r.Field<string>("Code"),
                             UserTypeId = r.Field<long>("UserTypeId"),
+                            UserTypeName= r.Field<string>("UserType"),
                             Id = r.Field<long>("Id"),
                         }).FirstOrDefault();
                         con.Close();
@@ -242,8 +243,7 @@ namespace DemoService.UserService
                     Mapper.Map(user, useViewModel);
                     useViewModel.Password = user.PasswordHash;
                     useViewModel.ConfirmPassword = user.PasswordHash;
-                    useViewModel.DepartrmentId = user.DepartrmentId;
-                    useViewModel.DesignationId = user.DesignationId;
+ 
                 }
                 catch (Exception ex)
                 {

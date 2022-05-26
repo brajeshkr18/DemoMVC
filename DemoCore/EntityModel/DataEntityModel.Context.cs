@@ -27,10 +27,10 @@ namespace Demo.Core.EntityModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<Desigation> Desigations { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
     
         public virtual ObjectResult<GetGalleryItem_Result> GetGalleryItem(Nullable<long> id)
         {
@@ -152,6 +152,19 @@ namespace Demo.Core.EntityModel
         public virtual ObjectResult<GetPaidOrderDetail_Result> GetPaidOrderDetail()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPaidOrderDetail_Result>("GetPaidOrderDetail");
+        }
+    
+        public virtual ObjectResult<GetLoginInfo_Result> GetLoginInfo(string userName, string password)
+        {
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetLoginInfo_Result>("GetLoginInfo", userNameParameter, passwordParameter);
         }
     }
 }

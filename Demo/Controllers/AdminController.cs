@@ -12,11 +12,6 @@ namespace Demo.Controllers
 
         public ActionResult Dashboard()
         {
-            //List <BookingReqestViewModel> bookings = _bookingService.GetBookingList().ToList();
-            //ViewBag.TotalOrder = menuService.GetAllPayment().Count();
-            //ViewBag.Totalbooking = bookings.Count();
-            //ViewBag.Todaysbooking = bookings.Where(x=>x.Date.Date==DateTime.Now.Date).Count();
-            //ViewBag.CreatedToday = bookings.Where(x => x.Date.Date == DateTime.Now.Date).Count();
             return View();
         }
  

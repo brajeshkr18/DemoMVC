@@ -82,35 +82,7 @@
                         @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger", @id = "lblPhone" })
                     </div>
                 </div>
-                <div class="form-group">
-
-                    <div class="col-sm-8">
-                        <label for="smallinput" class="col-sm-4 control-label label-input-sm">DepartMent</label>
-                        @Html.DropDownList("DepartMent",
-                    EnumHelper.GetSelectList(typeof(Utility.Enums.Designation)),
-                    "Select DepartMent",
-                    new { @class = "form-control1", @id = "DepartrmentId", onchange = "" })
-
-                        <div class="col-sm-8">
-                            @Html.ValidationMessageFor(m => m.DepartrmentId, "", new { @class = "text-danger", @id = "lblDepartment" })
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-
-                    <div class="col-sm-8">
-                        <label for="smallinput" class="col-sm-2 control-label label-input-sm">Designation</label>
-                        @Html.DropDownListFor(model => model.DesignationId,
-                  new SelectList(new List<SelectListItem>
-                   {
-                       new SelectListItem { Text = "Please select department first" , Value = "0"},
-                   }, "Value", "Text", "True"),
-                       new { @class = "form-control1 ", @id = "DesignationId" })
-                        <div class="col-sm-8">
-                            @Html.ValidationMessageFor(m => m.DesignationId, "", new { @class = "text-danger", @id = "lblDesignation" })
-                        </div>
-                    </div>
-                </div>
+             
                 <div class="form-group">
 
                     <div class="col-sm-8">
@@ -144,20 +116,7 @@
                         @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger", @id = "lblConfirmpassword" })
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <div class="col-sm-8">
-                            <label for="smallinput" class="col-sm-4 control-label label-input-sm">UserType</label>
-
-                        </div>
-                        <div class="col-sm-8">
-                            <input type="radio" id="Role1" name="UserTypeId" value="2">
-                            <label for="age1">Admin</label>
-                            <input type="radio" id="Role2" name="UserTypeId" value="3" checked="checked">
-                            <label for="age2">User</label>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="col-sm-8">
                     <div class="date_btn" style="margin: 4em 0 0;text-align: center;">
                         <button id="btn_register" class="reg-button" type="button">Register</button>
@@ -181,11 +140,9 @@
         var lastName = $("#LastName").val();
         var email = $("#txtEmail").val();
         var phone = $("#PhoneNumber").val();
-        var departrmentId = $("#DepartrmentId").val();
-        var designationId = $("#DesignationId").val();
         var password = $("#txtPassword").val();
         var confirmpassword = $("#ConfirmPassword").val();
-         var role = $('input[name=UserTypeId]:checked').val();
+         var role = 3//only registerig user from home screen;
         if (firstName == "") {
             $('#lblFirstName').html(ErrorMessage.FirstName);
             hasError = true;
@@ -210,14 +167,7 @@
             $('#lblPhone').html(ErrorMessage.PhoneValidation)
             hasError = true;
         }
-        if (departrmentId == "0" || departrmentId == "") {
-            $('#lblDepartment').html(ErrorMessage.Department)
-            hasError = true;
-        }
-        if (designationId == "0") {
-            $('#lblDesignation').html(ErrorMessage.Designation)
-            hasError = true;
-        }
+        
         if (password == "") {
             $('#lblPassword').html(ErrorMessage.Password)
             hasError = true;
@@ -251,8 +201,6 @@
                 LastName: lastName,
                 Email: email,
                 PhoneNumber: phone,
-                DepartrmentId: departrmentId,
-                DesignationId: designationId,
                 Password: password,
                 UserTypeId: parseInt(role),
                 ConfirmPassword: confirmpassword
@@ -262,6 +210,7 @@
                    // $(':input', '#form').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
                     clearform();
                     alert(data.Message);
+                    window.location = "../Account/Login";
                 }
                 else if (data.IsSuccess == false) {
                     $('#lblEmail').html(data.Message)
@@ -282,20 +231,10 @@
         return re.test(phone);
     }
     function validatePassword(password) {
-        var re = /^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{5,8}$/; ///^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@@$!%*?&])[A-Za-z\d@@$!%*?&]{5, 8}$/;
+        var re =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
         return re.test(password);
     }
-    var url = '@Url.Action("Designation", "Account")'; // use the helper (dont hard code)
-    var designation = $('#DesignationId'); // cache the element
-    $('#DepartrmentId').change(function () {
-        $.getJSON(url, { DepartmentId: $(this).val() }, function (response) {
-            // clear and add default (null) option
-            designation.empty().append($('<option></option>').val('0').text('Please select Designation'));
-            $.each(response, function (index, item) {
-                designation.append($('<option></option>').val(item.DepartmentId).text(item.Designation));
-            });
-        });
-    });
+   
 
 
     function clearValidation() {
@@ -303,8 +242,6 @@
         $('#lblLastName').html("");
         $('#lblEmail').html("");
         $('#lblPhone').html("");
-        $('#lblDepartment').html("");
-        $('#lblDesignation').html("");
         $('#lblPassword').html("");
         $('#lblConfirmpassword').html("");
     }
@@ -313,8 +250,6 @@
         $('#lblLastName').html("");
         $('#lblEmail').html("");
         $('#lblPhone').html("");
-        $('#lblDepartment').html("");
-        $('#lblDesignation').html("");
         $('#lblPassword').html("");
         $('#lblConfirmpassword').html("");
 
@@ -324,7 +259,5 @@
         $("#PhoneNumber").val("");
         $("#txtPassword").val("");
         $("#ConfirmPassword").val("");
-        //$("#DepartrmentId").val("0");
-        //$("#DesignationId").val("0");
     }
 </script>

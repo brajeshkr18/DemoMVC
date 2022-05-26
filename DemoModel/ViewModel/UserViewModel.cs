@@ -54,16 +54,14 @@ namespace DemoModel.ViewModel
         [Required(ErrorMessage = "Password is required")]
         //[StringLength(8, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$", ErrorMessage = "Mix of min 1 characters, uppercase, lowercase ,numeric & minimum 6 length")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Confirm Password is required")]
         //[StringLength(8, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$", ErrorMessage = "Mix of min 1 characters, uppercase, lowercase ,numeric & minimum 6 length")]
         //[System.ComponentModel.DataAnnotations.Compare("Password")]
         public string ConfirmPassword { get; set; }
-
-
-        public int DepartrmentId { get; set; }
-        public int DesignationId { get; set; }
     }
 }

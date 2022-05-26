@@ -75,10 +75,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataEntityModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\Desigation.cs">
+    <Compile Include="EntityModel\GetGalleryItem_Result.cs">
       <DependentUpon>DataEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\GetGalleryItem_Result.cs">
+    <Compile Include="EntityModel\GetLoginInfo_Result.cs">
       <DependentUpon>DataEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\GetOrdersByShippingId_Result.cs">
@@ -88,6 +88,9 @@
       <DependentUpon>DataEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\GetPlacedOrders_Result.cs">
+      <DependentUpon>DataEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\Post.cs">
       <DependentUpon>DataEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\User.cs">

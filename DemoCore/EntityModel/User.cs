@@ -39,8 +39,6 @@ namespace Demo.Core.EntityModel
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public int DepartrmentId { get; set; }
-        public int DesignationId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserDetail> UserDetails { get; set; }

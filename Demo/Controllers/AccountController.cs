@@ -1,14 +1,10 @@
-﻿using DemoModel.ViewModel;
+﻿using Demo.Utility.Helper;
+using Demo.Web.Helper;
+using DemoModel.ViewModel;
+using DemoService.UserService;
 using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using static Utility.Enums;
-using Demo.Web.Helper;
-using DemoService.UserService;
-using Demo.Utility.Helper;
-using DemoService.HomeService;
 
 namespace Demo.Controllers
 {
@@ -17,7 +13,6 @@ namespace Demo.Controllers
     {
 
         IUserService _userService = new UserService();
-        IHomeService _homeService = new HomeService();
 
         // GET: /Account/Login
         [AllowAnonymous]
@@ -64,13 +59,13 @@ namespace Demo.Controllers
                     {
                         string rememberme = (model.RememberMe) ? "true" : "false";
                         UserAuthenticate.AddLoginCookie(authenticatedUser.FirstName + " " + authenticatedUser.LastName, 
-                            authenticatedUser.UserType.Name, authenticatedUser.Id.ToString(),
-                                     authenticatedUser.UserType.Code, rememberme,authenticatedUser.UserTypeId);
-                        if (authenticatedUser.UserType.Name == UserType.Admin.ToString())
+                            authenticatedUser.UserTypeName, authenticatedUser.Id.ToString(),
+                                     authenticatedUser.UserTypeCode, rememberme,authenticatedUser.UserTypeId);
+                        if (authenticatedUser.UserTypeName == UserType.Admin.ToString())
                         {
                             return RedirectToAction("Dashboard", "Admin");
                         }
-                        else if (authenticatedUser.UserType.Name == UserType.User.ToString())
+                        else if (authenticatedUser.UserTypeName == UserType.User.ToString())
                         {
                             return RedirectToAction("Index", "Account");
                         }
@@ -209,11 +204,11 @@ namespace Demo.Controllers
             ViewBag.Message = message;
             return View(model);
         }
-        public ActionResult Designation(int DepartmentId)
-        {
-            var designations = _homeService.GetDesignation(DepartmentId);
-            return Json(designations, JsonRequestBehavior.AllowGet);
-        }
+        //public ActionResult Designation(int DepartmentId)
+        //{
+        //    var designations = _homeService.GetDesignation(DepartmentId);
+        //    return Json(designations, JsonRequestBehavior.AllowGet);
+        //}
         public ActionResult Index()
         {
             return View();
