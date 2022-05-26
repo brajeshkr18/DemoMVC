@@ -3,3 +3,17 @@
 ################################################################################
 
 /.vs/Demo
+/.vs/ProjectEvaluation
+/DatabaseScript/obj
+/DatabaseScript/bin/Debug/netstandard2.0
+/Demo/bin
+/Demo/obj/Debug
+/Utility/obj/Debug
+/Utility/Properties/AssemblyInfo.cs
+/Utility/bin/Debug
+/DemoService/obj/Debug
+/DemoService/bin/Debug
+/DemoCore/obj/Debug
+/DemoCore/bin/Debug
+/DemoModel/bin/Debug
+/DemoModel/obj/Debug
