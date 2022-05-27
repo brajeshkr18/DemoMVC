@@ -62,7 +62,7 @@
                             <div class="form-group row">
                                 <label for="fname" class="col-sm-3 text-right control-label col-form-label">Description</label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @placeholder = "Description" })
+                                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @placeholder = "Description", @required = "required" })
                                     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>

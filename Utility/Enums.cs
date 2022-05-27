@@ -29,17 +29,5 @@ namespace Utility
             Admin = 2,
             User = 3
         }
-        public enum Department
-        {
-            Content=1,
-            Design=2,
-            Marketing=3
-        }
-        public enum Designation
-        {
-            Content = 1,
-            Design = 2,
-            Marketing = 3
-        }
     }
 }
