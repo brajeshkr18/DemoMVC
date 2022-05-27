@@ -55,8 +55,11 @@ namespace DemoService.PostService
             {
                 if (postViewModel.Id!=0)
                 {
+                    
                     var postObj = _Context.Posts.Where(x => x.Id == postViewModel.Id).FirstOrDefault();
                     Mapper.Map(postViewModel, postObj);
+                    postObj.ModifiedBy = logId;
+                    postObj.ModifiedOn = DateTime.Now;
                 }
                 else
                 {

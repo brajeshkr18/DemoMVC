@@ -13,13 +13,14 @@ namespace DemoModel.ViewModel
         public long UserTypeId { get; set; }
         [Required(ErrorMessage = "First Name is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabets should be acceptable")]
-        [System.ComponentModel.DataAnnotations.Display(Name = "First Name *")]
+        [Display(Name = "First Name *")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Last Name is required")]
         [Display(Name = "Last Name *")]
         public string LastName { get; set; }
-        [Remote("IsUserEmailExists", "Account", ErrorMessage = "Email is already taken by someone", AdditionalFields = "Email,Id")]
+        //[Remote("IsUserEmailExists", "Account", ErrorMessage = "Email is already taken by someone", AdditionalFields = "Email,Id")]
         [Required(ErrorMessage = "Email is required")]
+        [EmailAddress]
         [Display(Name = "Email *")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Phone Number is required")]

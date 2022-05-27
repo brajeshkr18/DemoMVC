@@ -1,37 +1,112 @@
-﻿Create database [Demo]
-USE [Demo]
+﻿USE [master]
 GO
-/****** Object:  Table [dbo].[Desigation]    Script Date: 25-12-2021 17:12:54 ******/
+/****** Object:  Database [Dummy]    Script Date: 5/27/2022 3:14:53 AM ******/
+CREATE DATABASE [Dummy]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Dummy', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\Dummy.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Dummy_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\Dummy_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [Dummy] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Dummy].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Dummy] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Dummy] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Dummy] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Dummy] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Dummy] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Dummy] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [Dummy] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Dummy] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Dummy] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Dummy] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Dummy] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Dummy] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Dummy] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Dummy] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Dummy] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [Dummy] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Dummy] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Dummy] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Dummy] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Dummy] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Dummy] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Dummy] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Dummy] SET RECOVERY FULL 
+GO
+ALTER DATABASE [Dummy] SET  MULTI_USER 
+GO
+ALTER DATABASE [Dummy] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Dummy] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Dummy] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Dummy] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Dummy] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Dummy] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'Dummy', N'ON'
+GO
+ALTER DATABASE [Dummy] SET QUERY_STORE = OFF
+GO
+USE [Dummy]
+GO
+/****** Object:  Table [dbo].[Posts]    Script Date: 5/27/2022 3:14:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-SET ANSI_PADDING ON
-GO
-CREATE TABLE [dbo].[Desigation](
+CREATE TABLE [dbo].[Posts](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
-	[Designation] [varchar](50) NOT NULL,
-	[DepartmentId] [int] NOT NULL,
+	[Title] [varchar](100) NOT NULL,
+	[Description] [varchar](max) NULL,
+	[CreatedBy] [bigint] NULL,
 	[CreatedOn] [datetime] NOT NULL,
-	[IsActive] [bit] NOT NULL,
-	[CreatedBy] [bigint] NOT NULL,
 	[ModifiedBy] [bigint] NULL,
 	[ModifiedOn] [datetime] NULL,
- CONSTRAINT [PK_Desigation] PRIMARY KEY CLUSTERED 
+	[IsActive] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
+ CONSTRAINT [PK_Posts] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  Table [dbo].[UserDetails]    Script Date: 25-12-2021 17:12:54 ******/
+/****** Object:  Table [dbo].[UserDetails]    Script Date: 5/27/2022 3:14:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[UserDetails](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
@@ -49,18 +124,13 @@ CREATE TABLE [dbo].[UserDetails](
  CONSTRAINT [PK_UserDetails] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
 GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  Table [dbo].[Users]    Script Date: 25-12-2021 17:12:54 ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 5/27/2022 3:14:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[Users](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
@@ -82,23 +152,16 @@ CREATE TABLE [dbo].[Users](
 	[ModifiedOn] [datetime] NULL,
 	[IsActive] [bit] NOT NULL,
 	[IsDeleted] [bit] NOT NULL,
-	[DepartrmentId] [int] NOT NULL,
-	[DesignationId] [int] NOT NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  Table [dbo].[UserTypes]    Script Date: 25-12-2021 17:12:54 ******/
+/****** Object:  Table [dbo].[UserTypes]    Script Date: 5/27/2022 3:14:54 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
 GO
 CREATE TABLE [dbo].[UserTypes](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
@@ -109,52 +172,72 @@ CREATE TABLE [dbo].[UserTypes](
  CONSTRAINT [PK_UserTypes] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-
 GO
-SET ANSI_PADDING OFF
+SET IDENTITY_INSERT [dbo].[Posts] ON 
 GO
-SET IDENTITY_INSERT [dbo].[Desigation] ON 
-
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (1, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (1, N'Writer', 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (2, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (2, N'Editor', 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (3, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (3, N'Reviewer', 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (4, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (4, N'Illustrator', 2, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (5, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (5, N'3D Designer', 2, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (6, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (6, N'2D Designer', 2, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (7, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (7, N'Business Dev', 3, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (8, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (8, N'Editor', 3, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (9, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Desigation] ([Id], [Designation], [DepartmentId], [CreatedOn], [IsActive], [CreatedBy], [ModifiedBy], [ModifiedOn]) VALUES (9, N'Blog writer', 3, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, NULL, NULL)
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (10, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
 GO
-SET IDENTITY_INSERT [dbo].[Desigation] OFF
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (11, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (12, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (13, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (14, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (15, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (16, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (17, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (18, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (19, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Posts] ([Id], [Title], [Description], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (20, N'Brajeh', N'gfhgfhfghfhgf', 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, CAST(N'2022-05-27T01:37:43.000' AS DateTime), 1, 0)
+GO
+SET IDENTITY_INSERT [dbo].[Posts] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Users] ON 
-
 GO
-INSERT [dbo].[Users] ([Id], [UserTypeId], [FirstName], [LastName], [Email], [PhoneNumber], [UserName], [SaltKey], [PasswordHash], [DefaultPassword], [LastLoginDate], [IsOnLine], [AccountStatus], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [DepartrmentId], [DesignationId]) VALUES (1, 1, N'brajesh', N'kumar1', N'brajeshkr18@gmail.com', N'89898989890', N'brajesh', NULL, N'4ebe2761d0cceed5bd5b4333f288d7bf', 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 0, 1, 1)
+INSERT [dbo].[Users] ([Id], [UserTypeId], [FirstName], [LastName], [Email], [PhoneNumber], [UserName], [SaltKey], [PasswordHash], [DefaultPassword], [LastLoginDate], [IsOnLine], [AccountStatus], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (1, 1, N'brajesh', N'kumar1', N'brajeshkr18@gmail.com', N'89898989890', N'brajesh', NULL, N'4ebe2761d0cceed5bd5b4333f288d7bf', 1, CAST(N'2021-12-25T00:20:34.940' AS DateTime), 1, 1, 1, CAST(N'2021-12-25T00:20:34.940' AS DateTime), 1, CAST(N'2021-12-25T00:20:34.940' AS DateTime), 1, 0)
 GO
-INSERT [dbo].[Users] ([Id], [UserTypeId], [FirstName], [LastName], [Email], [PhoneNumber], [UserName], [SaltKey], [PasswordHash], [DefaultPassword], [LastLoginDate], [IsOnLine], [AccountStatus], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted], [DepartrmentId], [DesignationId]) VALUES (2, 1, N'brajesh', N'kumar1', N'brajesh@gmail.com', N'89898989890', N'brajesh', NULL, N'4ebe2761d0cceed5bd5b4333f288d7bf', 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 1, 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, CAST(N'2021-12-25 00:20:34.940' AS DateTime), 1, 0, 1, 1)
+INSERT [dbo].[Users] ([Id], [UserTypeId], [FirstName], [LastName], [Email], [PhoneNumber], [UserName], [SaltKey], [PasswordHash], [DefaultPassword], [LastLoginDate], [IsOnLine], [AccountStatus], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (2, 1, N'brajesh', N'kumar1', N'brajesh@gmail.com', N'89898989890', N'brajesh', NULL, N'4ebe2761d0cceed5bd5b4333f288d7bf', 1, CAST(N'2021-12-25T00:20:34.940' AS DateTime), 1, 1, 1, CAST(N'2021-12-25T00:20:34.940' AS DateTime), 1, CAST(N'2021-12-25T00:20:34.940' AS DateTime), 1, 0)
+GO
+INSERT [dbo].[Users] ([Id], [UserTypeId], [FirstName], [LastName], [Email], [PhoneNumber], [UserName], [SaltKey], [PasswordHash], [DefaultPassword], [LastLoginDate], [IsOnLine], [AccountStatus], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (3, 3, N'anmol', N'anmol', N'anmol@gmail.com', N'7678989878', NULL, NULL, N'd0aabe9a362cb2712ee90e04810902f3', NULL, NULL, NULL, 1, 0, CAST(N'2022-05-27T01:00:13.180' AS DateTime), NULL, NULL, 1, 0)
+GO
+INSERT [dbo].[Users] ([Id], [UserTypeId], [FirstName], [LastName], [Email], [PhoneNumber], [UserName], [SaltKey], [PasswordHash], [DefaultPassword], [LastLoginDate], [IsOnLine], [AccountStatus], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsActive], [IsDeleted]) VALUES (4, 3, N'kumar', N'kumar', N'kumar@gmail.com', N'7878787878', NULL, NULL, N'd0aabe9a362cb2712ee90e04810902f3', NULL, NULL, NULL, 1, 0, CAST(N'2022-05-27T02:27:38.043' AS DateTime), NULL, NULL, 1, 0)
 GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
 SET IDENTITY_INSERT [dbo].[UserTypes] ON 
-
 GO
-INSERT [dbo].[UserTypes] ([Id], [Name], [Code], [CreatedOn], [IsActive]) VALUES (1, N'SuperAdmin', N'SuperAdmin', CAST(N'2018-01-31 23:40:11.807' AS DateTime), 1)
+INSERT [dbo].[UserTypes] ([Id], [Name], [Code], [CreatedOn], [IsActive]) VALUES (1, N'SuperAdmin', N'SuperAdmin', CAST(N'2018-01-31T23:40:11.807' AS DateTime), 1)
 GO
-INSERT [dbo].[UserTypes] ([Id], [Name], [Code], [CreatedOn], [IsActive]) VALUES (2, N'Admin', N'Admin', CAST(N'2018-01-31 23:40:11.883' AS DateTime), 1)
+INSERT [dbo].[UserTypes] ([Id], [Name], [Code], [CreatedOn], [IsActive]) VALUES (2, N'Admin', N'Admin', CAST(N'2018-01-31T23:40:11.883' AS DateTime), 1)
 GO
-INSERT [dbo].[UserTypes] ([Id], [Name], [Code], [CreatedOn], [IsActive]) VALUES (3, N'User', N'User', CAST(N'2018-01-31 23:40:11.883' AS DateTime), 1)
+INSERT [dbo].[UserTypes] ([Id], [Name], [Code], [CreatedOn], [IsActive]) VALUES (3, N'User', N'User', CAST(N'2018-01-31T23:40:11.883' AS DateTime), 1)
 GO
 SET IDENTITY_INSERT [dbo].[UserTypes] OFF
 GO
@@ -170,7 +253,27 @@ REFERENCES [dbo].[UserTypes] ([Id])
 GO
 ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK__UserTypeId__UserType__Id]
 GO
-/****** Object:  StoredProcedure [dbo].[SaveUserDetails]    Script Date: 25-12-2021 17:12:54 ******/
+/****** Object:  StoredProcedure [dbo].[GetLoginInfo]    Script Date: 5/27/2022 3:14:55 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+  
+CREATE  PROCEDURE [dbo].[GetLoginInfo]  --'brajeshkr18@gmail.com','4ebe2761d0cceed5bd5b4333f288d7bf'
+    @UserName VARCHAR(50),  
+    @Password varchar(max)  
+AS  
+SET NOCOUNT ON   
+Begin  
+ SELECT US.FirstName,LastName,Email,PhoneNumber,Code,UT.Name as UserType,Us.UserName 
+,Us.Id,US.UserTypeId FROM [dbo].[Users] US join [dbo].[UserTypes] UT on US.UserTypeId=UT.Id 
+WHERE Email = @UserName AND [PasswordHash] = @Password 
+
+END  
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[SaveUserDetails]    Script Date: 5/27/2022 3:14:55 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,4 +314,8 @@ end
 
 
 
+GO
+USE [master]
+GO
+ALTER DATABASE [Dummy] SET  READ_WRITE 
 GO

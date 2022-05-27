@@ -42,7 +42,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 @*<a class="btn btn-outline-info btn-xs linkbutton" href="@Url.Action("AddUser", "User", new{})" name="edit">Add New </a>&nbsp;*@
-                                <a class="btn btn-outline-info btn-xs linkbutton" href="#" name="edit">Add New </a>&nbsp;
+                                <a class="btn btn-outline-info btn-xs linkbutton" href="@Url.Action("AddPost", "Post",new {Id=0})" name="edit">Add New </a>&nbsp;
                             </h5>
                             <div class="table-responsive">
                                 @{Html.RenderPartial("_Posts", Model);}

@@ -13,7 +13,7 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                <h4 class="page-title">User Details</h4>
+                <h4 class="page-title">Post Details</h4>
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -40,86 +40,42 @@
                 <div class="card">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @using (Html.BeginForm("AddUser", "User",
+                    @using (Html.BeginForm("AddPost", "Post",
                         new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
                         new { @class = "form-horizontal", role = "form", @id = "formAddWebsite", enctype = "multipart/form-data" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(model => model.Id)
-                        @Html.HiddenFor(model => model.Password)
-                        @Html.HiddenFor(model => model.ConfirmPassword)
+                        @Html.HiddenFor(model => model.CreatedOn)
+                        @Html.HiddenFor(model => model.IsActive)
+                        @Html.HiddenFor(model => model.IsDeleted)
                         @*<input type="hidden" id="ddvalue" value="@Model.TypeId"/>*@
                         <div class="card-body">
-                            <h4 class="card-title">User Info</h4>
+                            <h4 class="card-title">Post Info</h4>
                             <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">FirstName</label>
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Title</label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @placeholder = "FirstName" })
-                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Title", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">LastName</label>
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Description</label>
                                 <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @placeholder = "LastName" })
-                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control", @placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Email</label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @readonly = "true" })
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Mobile</label>
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control", @placeholder = "Mobile" })
-                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">DepartMent</label>
-                                <div class="col-sm-9">
 
-                                    @Html.DropDownListFor(x=>x.DepartrmentId,
-    EnumHelper.GetSelectList(typeof(Utility.Enums.Designation)),
-    "Select DepartMent",
-    new { @class = "form-control", @id = "DepartrmentId", onchange = "" })
 
-                                    @Html.ValidationMessageFor(m => m.DepartrmentId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Designation</label>
-                                <div class="col-sm-9">
-                                    @if (Model.Id != 0)
-                                    {
-                                        @Html.DropDownListFor(x => x.DesignationId, new SelectList(@ViewBag.GetDesignation, "Id", "Designation"),
-                                       "-- Select Designation--", new { @class = "form-control" })
-                                        @*@Html.DropDownList("Organization", ViewBag.GetDesignation as SelectList)*@
-                                    }
-                                    @Html.ValidationMessageFor(m => m.DesignationId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            @*<div class="form-group row">
-                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Title</label>
-                    <div class="col-sm-9">
-                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @placeholder = "Image Title" })
-                        @Html.ValidationMessageFor(m => m.GalleryName, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
 
 
                         </div>
                         <div class="border-top">
                             <div class="card-body">
                                 <button type="submit" class="btn btn-success">Save</button>
-                                <a href="@Url.Action("ManageUsers", "User" )" class="btn btn-danger" name="Cancel">Cancel</a>
-                                @*<button type="submit" class="btn btn-primary">Reset</button>
-                    <button type="submit" class="btn btn-info">Edit</button>
-                    <button type="submit" class="btn btn-danger">Cancel</button>*@
+                                <a href="@Url.Action("ManagePosts", "Post" )" class="btn btn-danger" name="Cancel">Cancel</a>
+
                             </div>
                         </div>
                     }
@@ -157,17 +113,5 @@
     <!-- ============================================================== -->
 </div>
 <script src="~/Assets/js/jquery-2.1.4.min.js"></script>
-<script>
-    var url = '@Url.Action("Designation", "Account")'; // use the helper (dont hard code)
-    var designation = $('#DesignationId'); // cache the element
-    $('#DepartrmentId').change(function() {
-        $.getJSON(url, { DepartmentId: $(this).val() }, function(response) {
-    // clear and add default (null) option
-            designation.empty().append($('<option></option>').val('').text('Please Designation'));
-            $.each(response, function(index, item) {
-                designation.append($('<option></option>').val(item.DepartmentId).text(item.Designation));
-            });
-  });
-});
-</script>
+
 

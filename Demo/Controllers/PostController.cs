@@ -23,7 +23,7 @@ namespace Demo.Controllers
             return Request.IsAjaxRequest() ? (ActionResult)PartialView("_Posts", postList) : View(postList);
         }
         public ActionResult AddPost(int Id)
-        {
+         {
             if (Id!=0)
             {
                 var post = _postService.GetPostById(Id);
@@ -34,7 +34,7 @@ namespace Demo.Controllers
         [HttpPost]
         public ActionResult AddPost(PostViewModel postViewModel)
         {
-            _postService.SavePost(postViewModel);
+            _postService.SavePost(postViewModel, Convert.ToInt32(UserAuthenticate.LogId));
             return RedirectToAction("ManagePosts");
         }
         public JsonResult DeletePost(int Id)

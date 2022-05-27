@@ -26,11 +26,8 @@
                 <td>
                     <a class="btn btn-outline-info btn-xs linkbutton"
                        href="@Url.Action("AddPost", "Post"
-                    ,new {data=entity.Id})" name="edit"><i class="fa fa-edit"></i>Edit</a>&nbsp;
-                    <a class="btn btn-outline-info btn-xs linkbutton"
-                       href="@Url.Action("DeletePost", "Post"
-                    ,new {data=entity.Id})" name="edit"><i class="fa fa-trash"></i>Delete</a>&nbsp;
-                    <a href="#" class="btn btn-danger" onclick="ConfirmDelete(@entity.Id)"><i class="glyphicon glyphicon-trash"></i> </a>
+                    ,new {Id=entity.Id})" name="edit"><i class="fa fa-edit"></i>Edit</a>&nbsp;
+                    <a href="#" class="btn btn-outline-info btn-xs linkbutton" onclick="ConfirmDelete(@entity.Id)"><i class="fa fa-trash"></i>Delete </a>
                 </td>
             </tr>
         }
@@ -61,7 +58,6 @@
 
     </div>
 </div>
-@*<script src="~/AdminAsset/assets/extra-libs/DataTables/datatables.min.js"></script>*@
 <script>
    
     var ConfirmDelete = function (PostId) {
@@ -72,9 +68,9 @@
     }
     var DeletePost = function () {
 
+        $("#myModal").modal("hide");
 
-
-        var Id = $().val();
+        var Id = $("#hiddenPostId").val();
 
         $.ajax({
 
@@ -82,9 +78,7 @@
             url: "/Post/DeletePost",
             data: { Id: Id },
             success: function (result) {
-
-                $("#myModal").modal("hide");
-                alert(data.Message);
+                alert(result.status);
                 window.location = "../Post/ManagePosts";
             }
 

@@ -67,7 +67,7 @@ namespace Demo.Controllers
                         }
                         else if (authenticatedUser.UserTypeName == UserType.User.ToString())
                         {
-                            return RedirectToAction("Index", "Account");
+                            return RedirectToAction("ManagePosts", "Post");
                         }
                         return RedirectToAction("Dashboard", "Admin");
 

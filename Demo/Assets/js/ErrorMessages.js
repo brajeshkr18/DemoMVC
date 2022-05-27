@@ -8,7 +8,7 @@
     Phone: "Mobile can not be left blank",
     PhoneValidation: "Mobile number is not valid",
     Password: "Password can not be left blank",
-    PasswordRegexValidation: "Password field should contain at least one alphabet, one digit and one special character and between 5 -8 characters",
+    PasswordRegexValidation: "Mix of min 1 characters, uppercase, lowercase ,numeric & minimum 6 length",
     ConfirmPassword: "ConfirmPassword can not be left blank",
     ConfirmPasswordMatch: "Password and ConfirmPassword doest match",
     Department: "Please select Department",
