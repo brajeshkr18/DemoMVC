@@ -1,14 +1,14 @@
-﻿using ExpressMapper;
+﻿using Demo.Core.EntityModel;
+using DemoModel.ViewModel;
+using ExpressMapper;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Data.Entity;
-using Demo.Core.EntityModel;
-using DemoModel.ViewModel;
 using User1 = Demo.Core.EntityModel.User;
-using System.Configuration;
 
 namespace DemoService.UserService
 {

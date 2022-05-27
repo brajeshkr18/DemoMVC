@@ -64,8 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConstant.cs" />
-    <Compile Include="CustomUtil.cs" />
-    <Compile Include="EmailNotification.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
