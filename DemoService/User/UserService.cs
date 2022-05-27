@@ -182,10 +182,7 @@ namespace DemoService.UserService
             bool status = false;
             try
             {
-                //var _usrsaltdetails = _Context.Users.FirstOrDefault(x => x.Id == user.Id);
                 var _usrsaltdetails = _Context.Users.Include(x => x.UserDetails).Where(x => x.Id == userViewModel.Id).FirstOrDefault();
-                //var _vehicledetails = _Context.Vehicles.Where(x => x.Id == userViewModel.VehicleId).FirstOrDefault();
-
                 if (_usrsaltdetails != null)
                 {
                     _usrsaltdetails.UserTypeId = userViewModel.UserTypeId;
